@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style type="text/css">
+        th {background-color: #cccccc;color:red}
+        tr:nth-child(even) {background-color: #D2D2D2}
+        tr:nth-child(odd) {background-color: #EFEFEF}
+        #firsthits {  font-weight: bold;}
+        a { color: black; }
+        a:hover {color: blue; }
+
+    </style>
+
+    <link rel="stylesheet" href="DataTable/jquery.dataTables.min.css"/>
+    <script type="text/javascript" src="DataTable/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="DataTable/jquery.dataTables.min.js"></script>
+  </head>
+  <body>
+    <center><h2 id="title">Results of the BLASTP Query</h2>
+    <table border="0" cellspacing="2" cellpadding="4" width="80%"  id="resultsTable">
+        <thead>
+            <tr>
+
+            </tr>
+        </thead>
+        <tbody>
+            <?php for ($i = 1; $i < count($data); $i++) { ?>
+                <tr>
+                    <?php
+                        $line_values = explode("\t", $data[$i]);
+                        for($index_line_values = 0; $index_line_values < count($line_values); $index_line_values++) {
+                        ?>
+                        <td><?php
+                        if($index_line_values == 0 ){
+                          $pdb_id = explode("_",$line_values[$index_line_values])[0];
+                          $url = "http://www.rcsb.org/structure/$pdb_id";
+                          print "<a href=\"$url\" >$line_values[$index_line_values]</a>";
+                        }else{
+                          print "<p>$line_values[$index_line_values]</p>";
+                        }
+                         ?> </td>
+                    <?php } ?>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+  </center>
+</body>
+</html>
